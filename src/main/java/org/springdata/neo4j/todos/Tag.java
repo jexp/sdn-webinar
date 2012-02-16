@@ -28,4 +28,9 @@ public class Tag {
     public Collection<Todo> getTodos() {
         return todos;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

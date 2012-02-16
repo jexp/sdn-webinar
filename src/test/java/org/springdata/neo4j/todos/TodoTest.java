@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import static java.util.Collections.singleton;
 import static org.hamcrest.core.Is.is;
@@ -28,6 +29,8 @@ public class TodoTest {
     Neo4jTemplate template;
     @Autowired
     TodoRepository todoRepository;
+    @Autowired
+    TagRepository tagRepository;
 
     @Test
     public void createAndReadTodo() {
@@ -98,5 +101,13 @@ public class TodoTest {
         final List<Todo> loaded = todoRepository.findCoTagged(todo);
         assertThat("has found the other todos also tagged with the tag of 'tag'",
                 loaded, hasItem(todo2));
+    }
+    @Test
+    public void testGenerateTags() {
+        final String text = "test #tag";
+        final Set<Tag> tags = tagRepository.obtainTags(text);
+        assertThat("one tag generated",tags.size(),is(1));
+        final Tag tag = tags.iterator().next();
+        assertThat("tags has name 'tag'", tag.getName(), is("tag"));
     }
 }
