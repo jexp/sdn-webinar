@@ -14,6 +14,8 @@
 
     <context:spring-configured/>
 
+    <context:component-scan base-package="org.springdata.neo4j.todos"/>
+
     <neo4j:config graphDatabaseService="graphDatabaseService"/>
 
     <bean id="graphDatabaseService" class="org.springframework.data.neo4j.rest.SpringRestGraphDatabase">
